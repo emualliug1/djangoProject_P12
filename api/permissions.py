@@ -1,22 +1,11 @@
 from rest_framework.permissions import BasePermission
-from api.models import Client, Contract, Event
-from authentification.models import User, Team
-from django.shortcuts import get_object_or_404
 from rest_framework import permissions
+from api.models import Client, Contract, Event
+from django.shortcuts import get_object_or_404
 
-
-def in_team(user):
-    team = ['GESTION', 'VENTE', 'SUPPORT']
-    if str(user.team) in team:
-        return True
-    return False
-
-
-def in_team_lead(user):
-    team_lead = ['GESTION', 'VENTE']
-    if str(user.team) in team_lead:
-        return True
-    return False
+GESTION = 'Gestion'
+SUPPORT = 'Support'
+VENTE = 'Vente'
 
 
 class ClientPermission(BasePermission):
@@ -33,14 +22,20 @@ class ClientPermission(BasePermission):
     message = "Vous n'avez pas la permission d'effectuer cette action"
 
     def has_permission(self, request, view):
-        if str(request.user.team) == 'Support':
+        if str(request.user.team) == SUPPORT:
             return request.method in permissions.SAFE_METHODS
-        return in_team_lead(request.user)
+        elif str(request.user.team) == VENTE or GESTION:
+            return True
+        return False
 
     def has_object_permission(self, request, view, obj):
-        details = ['update', 'destroy']
+        details = ['retrieve', 'update', 'partial_update', 'destroy']
         if view.action in details:
-            return request.user == obj.sales_contact
+            if request.user == obj.sales_contact:
+                return True
+            if str(request.user.team) == GESTION:
+                return True
+            return False
 
 
 class ContractPermission(BasePermission):
@@ -57,14 +52,21 @@ class ContractPermission(BasePermission):
     message = "Vous n'avez pas la permission d'effectuer cette action"
 
     def has_permission(self, request, view):
-        if str(request.user.team) == 'Support':
+        if str(request.user.team) == SUPPORT:
             return request.method in permissions.SAFE_METHODS
-        return in_team_lead(request.user)
+        elif str(request.user.team) == VENTE or GESTION:
+            return True
+        return False
 
     def has_object_permission(self, request, view, obj):
-        details = ['update', 'destroy']
+        client = get_object_or_404(Client, pk=view.kwargs['client_pk'])
+        details = ['retrieve', 'update', 'partial_update', 'destroy']
         if view.action in details:
-            return request.user == obj.sales_contact
+            if request.user == client.sales_contact:
+                return True
+            if str(request.user.team) == GESTION:
+                return True
+        return False
 
 
 class EventPermission(BasePermission):
@@ -81,11 +83,21 @@ class EventPermission(BasePermission):
     message = "Vous n'avez pas la permission d'effectuer cette action"
 
     def has_permission(self, request, view):
-        if str(request.user.team) == 'Support':
+        if str(request.user.team) == SUPPORT:
             return request.method in permissions.SAFE_METHODS
-        return in_team_lead(request.user)
+        elif str(request.user.team) == VENTE or GESTION:
+            return True
+        return False
 
     def has_object_permission(self, request, view, obj):
-        details = ['update', 'destroy']
+        contrat = get_object_or_404(Contract, pk=view.kwargs['contract_pk'])
+        details = ['retrieve', 'update', 'partial_update', 'destroy']
         if view.action in details:
-            return request.user == obj.support_contact
+            if request.user == contrat.support_contact:
+                return True
+            if str(request.user.team) == GESTION:
+                return True
+        return False
+
+
+

@@ -15,7 +15,7 @@ class Client(models.Model):
                                       on_delete=models.SET_NULL,
                                       null=True,
                                       blank=True,
-                                      limit_choices_to={"team_id": 0})
+                                      limit_choices_to={"team_id": 1})
 
     def __str__(self):
         client = f"{self.first_name} {self.last_name}"
@@ -32,7 +32,15 @@ class Contract(models.Model):
                                       on_delete=models.SET_NULL,
                                       null=True,
                                       blank=True,
-                                      limit_choices_to={"team_id": 0})
+                                      limit_choices_to={"team_id": 1},
+                                      related_name='sales_contact'
+                                      )
+    support_contact = models.ForeignKey(User,
+                                        on_delete=models.SET_NULL,
+                                        null=True,
+                                        blank=True,
+                                        limit_choices_to={"team_id": 2},
+                                        related_name='support_contact')
     client = models.ForeignKey(Client,
                                on_delete=models.CASCADE,
                                null=True,
@@ -55,11 +63,6 @@ class Event(models.Model):
     attendees = models.PositiveIntegerField()
     event_date = models.DateTimeField()
     notes = models.TextField(null=True, blank=True)
-    support_contact = models.ForeignKey(User,
-                                        on_delete=models.SET_NULL,
-                                        null=True,
-                                        blank=True,
-                                        limit_choices_to={"team_id": 1})
     contract = models.OneToOneField(Contract,
                                     on_delete=models.CASCADE,
                                     null=True,

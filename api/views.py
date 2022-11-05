@@ -3,7 +3,8 @@ from api.serializer import ClientListSerializer, ClientDetailSerializer
 from api.serializer import ContractListSerializer, ContractDetailSerializer
 from api.serializer import EventListSerializer, EventDetailSerializer
 from rest_framework.viewsets import ModelViewSet
-from .permissions import ClientPermission
+from .permissions import ClientPermission, ContractPermission, EventPermission
+
 
 class MultipleSerializerMixin:
     """
@@ -42,6 +43,7 @@ class ContractViewSet(MultipleSerializerMixin, ModelViewSet):
 
     serializer_class = ContractListSerializer
     serializer_detail_class = ContractDetailSerializer
+    permission_classes = [ContractPermission]
     queryset = Contract.objects.all()
 
     def get_queryset(self):
@@ -60,6 +62,7 @@ class EventViewSet(MultipleSerializerMixin, ModelViewSet):
 
     serializer_class = EventListSerializer
     serializer_detail_class = EventDetailSerializer
+    permission_classes = [EventPermission]
     queryset = Event.objects.all()
 
     def get_queryset(self):
