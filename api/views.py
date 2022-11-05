@@ -10,7 +10,6 @@ class MultipleSerializerMixin:
     """
     Creation d'une Mixin pour afficher la vue liste ou detail
     """
-
     serializer_detail_class = None
     action = None
 

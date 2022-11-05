@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from api.models import Client, Contract, Event
-from authentification.serializer import UserSerializer
+from authentification.serializer import UserListSerializer
 
 
 class ClientListSerializer(serializers.ModelSerializer):
@@ -22,7 +22,7 @@ class ContractListSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         self.fields['client'] = ClientListSerializer(read_only=True)
-        self.fields['sales_contact'] = UserSerializer(read_only=True)
+        self.fields['sales_contact'] = UserListSerializer(read_only=True)
         return super().to_representation(instance)
 
 

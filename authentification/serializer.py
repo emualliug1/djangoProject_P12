@@ -2,7 +2,14 @@ from authentification.models import User, Team
 from rest_framework import serializers
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'team']
+        read_only_fields = ['id', 'username']
+
+
+class UserDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['id', 'username', 'team']
@@ -17,7 +24,7 @@ class TeamSerializer(serializers.ModelSerializer):
 
     def get_users(self, instance):
         queryset = instance.users.all()
-        serializers = UserSerializer(queryset, many=True)
-        return serializers.data
+        serializer = UserListSerializer(queryset, many=True)
+        return serializer.data
 
 

@@ -20,7 +20,9 @@ class UserPermission(BasePermission):
     message = "Vous n'avez pas la permission d'effectuer cette action"
 
     def has_permission(self, request, view):
-        if str(request.user.team) == SUPPORT or VENTE:
+        if str(request.user.team) == SUPPORT:
+            return request.method in permissions.SAFE_METHODS
+        elif str(request.user.team) == VENTE:
             return request.method in permissions.SAFE_METHODS
         elif str(request.user.team) == GESTION:
             return True
@@ -48,13 +50,11 @@ class TeamPermission(BasePermission):
     message = "Vous n'avez pas la permission d'effectuer cette action"
 
     def has_permission(self, request, view):
-        if str(request.user.team) == SUPPORT or VENTE:
+        if str(request.user.team) == SUPPORT:
+            return request.method in permissions.SAFE_METHODS
+        elif str(request.user.team) == VENTE:
             return request.method in permissions.SAFE_METHODS
         elif str(request.user.team) == GESTION:
-            return True
-        return False
-
-    def has_object_permission(self, request, view, obj):
-        if str(request.user.team) == GESTION:
             return request.method in permissions.SAFE_METHODS
         return False
+

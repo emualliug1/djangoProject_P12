@@ -48,10 +48,10 @@ class Contract(models.Model):
 
     def __str__(self):
         if self.contract_status is False:
-            stat = "En Négociation"
+            status = "En Négociation"
         else:
-            stat = "Signé"
-        return f"Le Contrat du client:{self.client} crée le:{self.date_created} est:{stat}"
+            status = "Signé"
+        return f"Le Contrat du client:{self.client} crée le:{self.date_created} est:{status}"
 
 
 class Event(models.Model):
@@ -70,7 +70,7 @@ class Event(models.Model):
 
     def __str__(self):
         if self.event_status is False:
-            stat = "En cours"
+            status = "En cours"
         else:
-            stat = "Terminé"
-        return f"L'évènement:{self.name} crée le:{self.date_created} est:{stat}"
+            status = "Terminé"
+        return f"L'évènement:{self.name} crée le:{self.date_created} est:{status}"

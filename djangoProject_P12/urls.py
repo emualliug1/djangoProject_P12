@@ -28,7 +28,7 @@ urlpatterns = [
     path("api/", include(client_router.urls)),
     path("api/", include(contract_router.urls)),
     path("api/", include(event_router.urls)),
-    path("", dj_rest_auth.views.LoginView.as_view(), name='login'),
+    path("api/login/", dj_rest_auth.views.LoginView.as_view(), name='login'),
     path("api/signup/", include('dj_rest_auth.registration.urls')),
     path("api/api-auth/", include("rest_framework.urls")),
     path("api/dj-rest-auth/", include("dj_rest_auth.urls")),
