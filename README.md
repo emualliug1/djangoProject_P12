@@ -9,7 +9,7 @@ Assurez-vous que python est installé sur votre machine :
 
     python -V
 
-Vérifiez que vous disposez du module venv :
+Vérifier que vous disposez du module venv :
     
     python -m venv --help
   
@@ -41,11 +41,11 @@ Créer un environnement virtuel avec venv :`python -m venv ***nom de l'environne
 
     py -m venv env
     
-Activez l'environnement virtuel : `***nom de l'environnement***/Scripts/activate.bat` --- exemple : 
+Activer l'environnement virtuel : `***nom de l'environnement***/Scripts/activate.bat` --- exemple : 
 
     env/Scripts/activate.bat
     
-Installez les packages avec pip : 
+Installer les packages avec pip : 
 
     pip install -r requirements.txt
 
@@ -57,6 +57,6 @@ Creer un Super utilisateur :
 
 	py manage.py createsuperuser
 
-Lancez l'API avec : 
+Lancer l'API avec : 
 
     py manage.py runserver
