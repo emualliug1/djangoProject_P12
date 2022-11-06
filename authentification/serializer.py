@@ -26,5 +26,3 @@ class TeamSerializer(serializers.ModelSerializer):
         queryset = instance.users.all()
         serializer = UserListSerializer(queryset, many=True)
         return serializer.data
-
-
