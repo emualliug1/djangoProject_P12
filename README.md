@@ -35,7 +35,7 @@ Après avoir lancé le PgAdmin4 :
     Vous pouvez aussi créer un nouveau repertoire avec la commande: `mkdir`
     Une fois dans le bon repertoire il vous suffit de taper: 
  
-    git clone https://github.com/emualliug1/P12
+    git clone https://github.com/emualliug1/djangoProject_P12
     
 Créer un environnement virtuel avec venv :`python -m venv ***nom de l'environnement***` : pour créer l'environnement virtuel --- exemple : 
 
