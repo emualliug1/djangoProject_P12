@@ -60,3 +60,8 @@ Creer un Super utilisateur :
 Lancer l'API avec : 
 
     py manage.py runserver
+
+
+### Postman
+
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/22880114-d673e00a-0451-4cc8-8569-a8104d3705bb?action=collection%2Ffork&collection-url=entityId%3D22880114-d673e00a-0451-4cc8-8569-a8104d3705bb%26entityType%3Dcollection%26workspaceId%3D19148629-d9f0-4ce0-81f8-2528dd3e713a)
